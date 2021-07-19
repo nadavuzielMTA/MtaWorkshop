@@ -1,0 +1,8 @@
+Flask-PyMongo
+flask_restful
+flask
+pymongo
+PyJWT
+requests
+time
+secure-smtplib
