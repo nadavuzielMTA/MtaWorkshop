@@ -1,9 +1,9 @@
 import time
 from flask_restful import Resource
 from flask_restful.reqparse import RequestParser
-from mongo.db_client import AtlasMongoClient
-from apis.zoom_api.zoom_api import ZoomAPI
-from apis.gmail_api.gmail import GmailAPI
+from be.mongo.db_client import AtlasMongoClient
+from be.apis.zoom_api.zoom_api import ZoomAPI
+from be.apis.gmail_api.gmail import GmailAPI
 
 mongo = AtlasMongoClient()
 zoom = ZoomAPI()
