@@ -1,7 +1,7 @@
 Flask-PyMongo
 flask_restful
 flask
-pymongo
+pymongo[srv]
 PyJWT
 requests
 time

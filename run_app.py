@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 
-from flask_resource.flask_resource import ComplaintResource, GmailResource, ZoomResource
+from pipelines.rest_server import ComplaintResource, GmailResource, ZoomResource
 
 app = Flask(__name__)
 api = Api(app)
