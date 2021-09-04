@@ -16,7 +16,9 @@ class SomethingResource(Resource):
         return {'time': time.time()}
 
     def get(self):
+        print("nadav")
         db = mongo.db
+        print(db.test.find_one()['time'])
         return {'time': db.test.find_one()['time']}
 
 
