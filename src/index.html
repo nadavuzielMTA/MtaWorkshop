@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html class="no-js">
+<!--<![endif]-->
+
+<head dir="rtl">
+	<title>אנונימי</title>
+	<meta charset="utf-8">
+	<!--[if IE]>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<![endif]-->
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/animations.css">
+	<link rel="stylesheet" href="css/fonts.css">
+	<link rel="stylesheet" href="css/main.css" class="color-switcher-link">
+	<script src="js/vendor/modernizr-2.6.2.min.js"></script>
+
+
+</head>
+
+<body>
+
+
+	<div class="preloader">
+		<div class="preloader_image"></div>
+	</div>
+
+	<!-- search modal -->
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="search_modal" id="search_modal">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">
+				<i class="rt-icon2-cross2"></i>
+			</span>
+		</button>
+		<div class="widget widget_search">
+			<form method="get" class="searchform search-form form-inline" action="./">
+				<div class="form-group">
+					<input type="text" value="" name="search" class="form-control" placeholder="Search keyword" id="modal-search-input">
+				</div>
+				<button type="submit" class="theme_button">Search</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- Unyson messages modal -->
+	<div class="modal fade" tabindex="-1" role="dialog" id="messages_modal">
+		<div class="fw-messages-wrap ls with_padding">
+			<!-- Uncomment this UL with LI to show messages in modal popup to your user: -->
+			<!--
+		<ul class="list-unstyled">
+			<li>Message To User</li>
+		</ul>
+		-->
+
+		</div>
+	</div>
+	<!-- eof .modal -->
+
+	<!-- wrappers for visual page editor and boxed version of template -->
+	<div id="canvas">
+		<div id="box_wrapper">
+
+			<!-- template sections -->
+
+			<section class="page_topline cs table_section table_section_md columns_padding_0">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-3 text-center text-md-left">
+							<ul class="inline-dropdown inline-block divided_content">
+
+								<li class="dropdown login-dropdown">
+									<a class="header-button" data-target="#" href="./" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+										<i class="fa fa-user"></i>
+										<span class="header-button-text">Login</span>
+									</a>
+
+									<div class="dropdown-menu ls with_padding">
+
+										<p>
+											<strong class="grey">If you have an account, please log in:</strong>
+										</p>
+										<form role="form" action="/">
+
+											<div class="form-group">
+												<label for="login_email" class="sr-only">User Name</label>
+												<input type="text" class="form-control" id="user_name" placeholder="User">
+											</div>
+											<div class="form-group">
+												<label for="login_password" class="sr-only">Password</label>
+												<input type="password" class="form-control" id="login_password" placeholder="Password">
+											</div>
+											<button type="button" class="theme_button color1 block_button">
+												Log in
+											</button>
+
+										</form>
+
+									</div>
+								</li>
+
+
+							<li class="dropdown login-dropdown">
+									<a class="header-button" data-target="#" href="./" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+										<i class="fa fa-user"></i>
+										<span class="header-button-text">Register</span>
+									</a>
+
+									<div class="dropdown-menu ls with_padding">
+
+										<p>
+											<strong class="grey">Register</strong>
+										</p>
+										<form role="form" action="/">
+
+											<div class="form-group">
+												<label for="login_email" class="sr-only">User Name</label>
+												<input type="text" class="form-control" id="user_name" placeholder="User">
+											</div>
+											<div class="form-group">
+												<label for="login_password" class="sr-only">Password</label>
+												<input type="password" class="form-control" id="login_password" placeholder="Password">
+											</div>
+											<button type="button" class="theme_button color1 block_button">
+												Register
+											</button>
+
+										</form>
+
+									</div>
+								</li>
+							</ul>
+
+						</div>
+
+						<div class="col-md-6 text-center divided_content">
+
+							<div>
+								<div class="media small-teaser">
+									<div class="media-left">
+										<i class="fa fa-user highlight fontsize_16"></i>
+									</div>
+									<div class="media-body">
+										180-800-4321
+									</div>
+								</div>
+							</div>
+
+							<div>
+								<div class="media small-teaser">
+									<div class="media-left">
+										<i class="fa fa-map-marker highlight fontsize_16"></i>
+									</div>
+									<div class="media-body">
+										דיזינגוף 180, ת"א
+									</div>
+								</div>
+							</div>
+
+							<div>
+								<div class="media small-teaser">
+									<div class="media-left">
+										<i class="fa fa-envelope highlight fontsize_16"></i>
+									</div>
+									<div class="media-body">
+										support@psychologist.com
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="col-md-3 text-center text-md-right bottommargin_0">
+							<a href="#appointment" class="theme_button color1 margin_0">קביעת פגישה</a>
+						</div>
+
+					</div>
+				</div>
+			</section>
+
+			<header class="page_header header_white table_section columns_padding_0 toggler-xs-right">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-3 col-sm-5">
+							<a class="logo">
+								אנונימי
+							</a>
+							<!-- header toggler -->
+							<span class="toggle_menu visible-xs">
+								<span></span>
+							</span>
+						</div>
+						<div class="col-md-6 col-sm-2 text-center">
+							<!-- main nav start -->
+							<nav class="mainmenu_wrapper">
+								<ul class="mainmenu nav sf-menu">
+									<li class="active">
+										<a href="index.html">ראשי</a>
+									</li>
+
+									<li>
+										<a href="team.html">מי אנחנו</a>
+									</li>
+									<li>
+										<a href="breadcrumbs2.html">שירותים</a>
+									</li>
+									<li>
+										<a href="about.html">פורום</a>
+									</li>
+										<li>
+										<a href="about.html">פורום</a>
+									</li>
+								</ul>
+							</nav>
+							<!-- eof main nav -->
+							<span class="toggle_menu hidden-xs">
+								<span></span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<section class="intro_section page_mainslider ds">
+				<div class="flexslider">
+					<ul class="slides">
+
+						<li>
+							<img src="images/slide01.jpg" alt="">
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-12 text-center">
+										<div class="slide_description_wrapper">
+											<div class="slide_description">
+												<div class="intro-layer" data-animation="fadeInRight">
+													<h3>
+														אנונימי
+													</h3>
+												</div>
+												<div class="intro-layer" data-animation="fadeInLeft">
+													<p class="small-text grey">
+														סיוע אנונימי עבור נפגעי הטרדה מינית
+													</p>
+												</div>
+											</div>
+											<!-- eof .slide_description -->
+										</div>
+										<!-- eof .slide_description_wrapper -->
+									</div>
+									<!-- eof .col-* -->
+								</div>
+								<!-- eof .row -->
+							</div>
+							<!-- eof .container -->
+						</li>
+	
+
+					</ul>
+				</div>
+				<!-- eof flexslider -->
+			</section>
+	<section id="about" class="cs parallax darken_gradient page_about section_padding_top_75 columns_margin_bottom_30" dir="rtl">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 col-md-push-6 text-center">
+							<h2 class="section_header">חשוב לנו שתדע/י שאת/ה לא לבד</h2>
+							<br>
+							<p class="bold fontsize_18">בכל שלב עומד לרשותך קו הסיוע לנפגעות ונפגעי תקיפה מינית. פסיכולוגיות/ים מנוסות/ים, הזמינות/ים 24 שעות ביממה, יקשיבו לך ויעניקו תמיכה רגשית תוך שמירה על סודיות ופרטיות באמצעות פלטפורמת הZoom.</p>
+							<p class="fontsize_18">
+							שיתוף המידע הנאסף באתר הוא אך ורק ברמה המינמלית הנדרשת ואך ורק לצרכי הטיפול ובכפוף להגבלות הפרטיות, המידע המשותף עם בעלי המקצוע הוא אנונימי (למעט הגשת תלונה במשטרה) ואינו יכול לשמש לזיהוי גולש כזה או אחר. 
+							</p>
+							<div class="with_icon topmargin_60">
+								<h5 class="small-text text-uppercase inline-block">סער כהן</h5>
+								<span class="lightgrey">מנהל אתר אנונימי</span>
+							</div>
+						</div>
+						<div class="col-md-6 col-md-pull-6 text-center bottommargin_0">
+							<img src="images/person.png" alt="" class="top-overlap" />
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="services" class="ls section_padding_top_130 section_padding_bottom_100" dir="rtl">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<h2 class="section_header with_icon">האם אני צריך טיפול?</h2>
+							<p>
+								לאחר הפגיעה המינית ייתכן ותחווי/ה מספר תופעות שכיחות אשר יכולות להופיע מיד לאחר הפגיעה, אך גם שנים אחריה
+							</p>
+						</div>
+					</div>
+					<div class="row columns_padding_0 columns_margin_0 fontsize_16">
+						<div class="col-md-3 col-sm-6">
+							<div class="with_padding text-center teaser hover_shadow">
+								<img src="images/service-icons/relationship.png" alt="" />
+								<h4>
+									<a href="service-single.html">רגשות אשם</a>
+								</h4>
+								<p>
+									עוסקת בסבל שלנו אחרי שגילינו שלא עמדנו בציפיות של עצמנו – לא הצלחנו לחשוב, להרגיש או להתנהג בהתאם למה שאנחנו מאמינים כראוי ומתבקש במצב ספציפי.
+								</p>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="with_padding text-center teaser hover_shadow">
+								<img src="images/service-icons/mental.png" alt="" />
+								<h4>
+									<a href="service-single.html">חוסר ריכוז</a>
+								</h4>
+								<p>
+									קשיי ריכוז (או קשיי קשב) מוגדרים כמצב שבו יכולות הקשב של הפרט נמוכות, באופן קבוע או זמני, לאירוע האירוע.
+								</p>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6 clear-sm">
+							<div class="with_padding text-center teaser hover_shadow">
+								<img src="images/service-icons/feelings.png" alt="" />
+								<h4>
+									<a href="service-single.html">מחשבות טורדניות</a>
+								</h4>
+								<p>
+									מחשבות פולשניות או טורדניות הן מחשבות, דימויים או רעיונות לא רצויים שעשויים להפוך לאובססיות. הן מצערות ומעוררות מצוקה, וקשה לנהל אותן ולהשתחרר מהן.
+								</p>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="with_padding text-center teaser hover_shadow">
+								<img src="images/service-icons/conflicting.png" alt="" />
+								<h4>
+									<a href="service-single.html">נדודי שינה</a>
+								</h4>
+								<p>
+									שינה לא תקינה בלילה שגורמת לעייפות ולתפקוד לקוי במהלך היום.
+								</p>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6 clear-lg clear-md clear-sm">
+							<div class="with_padding text-center teaser hover_shadow">
+								<img src="images/service-icons/meditation.png" alt="" />
+								<h4>
+									<a href="service-single.html">ירידה בתאבון ובחשק המיני</a>
+								</h4>
+								<p>
+									חוסר תאבון לאחר האירוע וחוסר רצון לקיים אי אלו קשרים מיניים
+								</p>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="with_padding text-center teaser hover_shadow">
+								<img src="images/service-icons/depression.png" alt="" />
+								<h4>
+									<a href="service-single.html">עצבנות ומתח</a>
+								</h4>
+								<p>
+									התפרצויות זעם, חוסר סבלנות, אי-שקט, אלימות מילולית או פיזית, מתח שרירים גבוה, נטייה לאימפולסיביות והיעדר שיקול דעת.
+								</p>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6 clear-sm">
+							<div class="with_padding text-center teaser hover_shadow">
+								<img src="images/service-icons/mind.png" alt="" />
+								<h4>
+									<a href="service-single.html">תמונות חוזרות של האירוע</a>
+								</h4>
+								<p>
+									שחזור האירוע על ידי הנפגע בצורה קבועה וללא יכולת להשתחרר מהזיכרון הטראומתי.
+								</p>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="with_padding text-center teaser hover_shadow">
+								<img src="images/service-icons/relaxation.png" alt="" />
+								<h4>
+									<a href="service-single.html">אי שקט</a>
+								</h4>
+								<p>
+									הגוף מתוח, השרירים ב"היכון", הראש כואב רוב הזמן, אתם מוצאים עצמכם מתאפקים שוב ושוב שלא להתפרץ על האדם הקרוב ביותר שיקלע לדרככם, או לפרוץ בבכי פתאומי.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		
+
+			<section class="ls section_padding_top_130 section_padding_bottom_100 columns_margin_top_0 columns_margin_bottom_30" dir="rtl">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<h2 class="section_header with_icon">מאמרים</h2>
+							<p>
+								Exercitation cupim ex, short ribs cow in ullamco corned beef veniam kevin. Eu frankfurter ham hock ball tip reprehenderit adipisicing ipsum jerky tenderloin aliquip.
+							</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 text-center">
+							<article class="vertical-item content-padding post format-standard with_shadow">
+
+								<div class="item-media entry-thumbnail">
+									<img src="images/blog_post1.jpg" alt="">
+								</div>
+
+								<div class="item-content entry-content">
+									<header class="entry-header">
+
+										<div class="entry-date small-text highlight">
+											<a href="blog-right.html" rel="bookmark">
+												<time class="entry-date" datetime="2017-03-13T08:50:40+00:00">
+													March 13, 2017
+												</time>
+											</a>
+										</div>
+
+										<h4 class="entry-title">
+											<a href="blog-single-right.html" rel="bookmark">How to avoid hostile attitude</a>
+										</h4>
+
+										<hr class="divider_30_1">
+
+									</header>
+									<!-- .entry-header -->
+
+									<p class="bottommargin_40 fontsize_18">Exercitation cupim ex, short ribs cow in ullamco corned beef veniam kevin eu frankfurter...</p>
+
+									<a href="blog-single-right.html" class="theme_button color1">Read article</a>
+
+								</div>
+								<!-- .item-content.entry-content -->
+							</article>
+						</div>
+						<div class="col-md-4 text-center">
+							<article class="vertical-item content-padding post format-standard with_shadow">
+
+								<div class="item-media entry-thumbnail">
+									<img src="images/blog_post2.jpg" alt="">
+								</div>
+
+								<div class="item-content entry-content">
+									<header class="entry-header">
+
+										<div class="entry-date small-text highlight">
+											<a href="blog-right.html" rel="bookmark">
+												<time class="entry-date" datetime="2017-03-13T08:50:40+00:00">
+													March 13, 2017
+												</time>
+											</a>
+										</div>
+
+										<h4 class="entry-title">
+											<a href="blog-single-right.html" rel="bookmark">How to avoid hostile attitude</a>
+										</h4>
+
+										<hr class="divider_30_1">
+
+									</header>
+									<!-- .entry-header -->
+
+									<p class="bottommargin_40 fontsize_18">Exercitation cupim ex, short ribs cow in ullamco corned beef veniam kevin eu frankfurter...</p>
+
+									<a href="blog-single-right.html" class="theme_button color1">Read article</a>
+
+								</div>
+								<!-- .item-content.entry-content -->
+							</article>
+						</div>
+						<div class="col-md-4 text-center">
+							<article class="vertical-item content-padding post format-standard with_shadow">
+
+								<div class="item-media entry-thumbnail">
+									<img src="images/blog_post3.jpg" alt="">
+								</div>
+
+								<div class="item-content entry-content">
+									<header class="entry-header">
+
+										<div class="entry-date small-text highlight">
+											<a href="blog-right.html" rel="bookmark">
+												<time class="entry-date" datetime="2017-03-13T08:50:40+00:00">
+													March 13, 2017
+												</time>
+											</a>
+										</div>
+
+										<h4 class="entry-title">
+											<a href="blog-single-right.html" rel="bookmark">How to avoid hostile attitude</a>
+										</h4>
+
+										<hr class="divider_30_1">
+
+									</header>
+									<!-- .entry-header -->
+
+									<p class="bottommargin_40 fontsize_18">Exercitation cupim ex, short ribs cow in ullamco corned beef veniam kevin eu frankfurter...</p>
+
+									<a href="blog-single-right.html" class="theme_button color1">Read article</a>
+
+								</div>
+								<!-- .item-content.entry-content -->
+							</article>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="cs main_color2 parallax page_testimonials section_padding_75" >
+				<div class="container">
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<div class="owl-carousel testimonials-carousel top-dots" data-responsive-sm="1" data-responsive-md="1" data-responsive-lg="1" data-dots="true">
+								<blockquote dir="rtl">
+									“האתגר של בני האדם הוא להפוך טרגדיה אישית לניצחון הרוח האנושית.”
+									<div class="item-meta">
+										<h5>ויקטור פראנקל</h5>
+									</div>
+								</blockquote>
+								<blockquote dir="rtl">
+									“ספר יש תמיד שני מחברים: מי שכותב ומי שקורא”
+									<div class="item-meta">
+										<h5>ז'אק סאלומה</h5>
+									</div>
+								</blockquote>
+								<blockquote dir="rtl">
+									“שום דבר לא יכול לעצור את האיש עם הגישה הנכונה מהלשיג את מטרתו. שום דבר עלי אדמות, לא יכול לעזור לאדם עם הגישה הלא נכונה”
+									<div class="item-meta">
+										<h5>תומס ג'פרסון</h5>
+									</div>
+								</blockquote>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="faq" class="ls section_padding_top_130 section_padding_bottom_100 dir="rtl">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<h2 class="section_header with_icon">שאלות נפוצות</h2>
+						</div>
+					</div>
+					<div class="row">
+					<div class="col-md-6">
+
+							<div class="tab-content padding_0">
+
+								<div class="tab-pane fade in active" id="tab1">
+									<div class="embed-responsive embed-responsive-16by9">
+										<iframe src="https://www.youtube.com/embed/BSAGwLIYvUU" class="embed-placeholder">
+										</iframe>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6" dir="rtl">
+							<div class="panel-group" id="accordion1">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion1" href="#collapse1" class="collapsed">
+												האם אני נדרש לספק פרטים אודייתי בשביל לקבל טיפול?
+											</a>
+										</h4>
+									</div>
+									<div id="collapse1" class="panel-collapse collapse">
+										<div class="panel-body">
+											<b>חד משמעית לא!</b> את\אתה לא חייבים להיחשף על מנת לקבל טיפול ועזרה על ידי פסיכולוג מוסמך, רק במידה ותחליט\י להגיש תלונה נצטרך פרטים לצרכי הגשת התלונה בשמך.
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion1" href="#collapse2" class="collapsed">
+												האם הטיפולים בתשלום?
+											</a>
+										</h4>
+									</div>
+									<div id="collapse2" class="panel-collapse collapse">
+										<div class="panel-body">
+											כלל השירותים הניתים באתר "אנונימי" הינם ללא תשלום וללא תמורה ונעשים בהתנדבות מלאה על ידי גורמי המקצוע.
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion1" href="#collapse3" class="collapsed">
+												האם בשביל הטיפול המשפטי אצטרך להיחשף?
+											</a>
+										</h4>
+									</div>
+									<div id="collapse3" class="panel-collapse collapse">
+										<div class="panel-body">
+										מכיוון שבמדינת ישראל לצרכי הגשת תלונה יש לספק את פרטי המגיש יש צורך בקבלת פרטים אך, חשוב לציין כי הפרטים נשארים בגדר חסויים ולא ישותפו ללא אישורך.
+										</div>
+									</div>
+								</div>
+
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion1" href="#collapse4" class="collapsed">
+												איך עובד תהליך הליווי המשפטי?
+											</a>
+										</h4>
+									</div>
+									<div id="collapse4" class="panel-collapse collapse">
+										<div class="panel-body">
+											עורך דין פלילי מומסך המתחמה במקרי הטרדה מינית ילווה את התהליך מטעמך מול גורמי אכיפת החוק ויעדכן בהתקדמות התהליך.
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</section>
+
+
+			<section id="appointment" class="ls section_padding_top_130 section_padding_bottom_100">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center">
+							<h2 class="section_header with_icon highlight">קביעת פגישה</h2>
+							<div class="fontsize_16">
+							ניתן לקבוע טיפול עוד היום
+							</div>
+
+							<form class="contact-form row columns_margin_bottom_40 topmargin_60" method="post" action="./">
+
+
+								</div>
+								<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center">
+									<div class="contact-form-email">
+										<input type="email" aria-required="true" size="30" value="" name="email" id="email" class="form-control" placeholder="Email Address (Optional, Wont be saved)">
+									</div>
+								</div>
+								<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center">
+									<div class="contact-form-date select-group">
+										<label for="date" class="sr-only">Date
+											<span class="required">*</span>
+										</label>
+										<div class="input-group">
+											<select aria-required="true" id="date" name="date" class="choice empty form-control">
+												<option value="" disabled selected data-default>Date</option>
+												<option value="14.03.2017">14.03.2017</option>
+												<option value="15.03.2017">15.03.2017</option>
+												<option value="16.03.2017">16.03.2017</option>
+												<option value="17.03.2017">17.03.2017</option>
+												<option value="18.03.2017">18.03.2017</option>
+												<option value="19.03.2017">19.03.2017</option>
+												<option value="20.03.2017">20.03.2017</option>
+												<option value="21.03.2017">21.03.2017</option>
+												<option value="22.03.2017">22.03.2017</option>
+												<option value="23.03.2017">23.03.2017</option>
+												<option value="24.03.2017">24.03.2017</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center">
+									<div class="contact-form-time select-group">
+										<label for="time" class="sr-only">Date
+											<span class="required">*</span>
+										</label>
+										<div class="input-group ">
+											<select aria-required="true" id="time" name="time" class="choice empty form-control">
+												<option value="" disabled selected data-default>Time</option>
+												<option value="14.03.2017">9:00</option>
+												<option value="15.03.2017">10:00</option>
+												<option value="16.03.2017">11:00</option>
+												<option value="17.03.2017">12:00</option>
+												<option value="18.03.2017">13:00</option>
+												<option value="19.03.2017">14:00</option>
+												<option value="20.03.2017">15:00</option>
+												<option value="21.03.2017">16:00</option>
+												<option value="22.03.2017">17:00</option>
+											</select>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center">
+
+									<div class="contact-form-submit topmargin_20">
+										<button type="submit" id="contact_form_submit" name="contact_submit" class="theme_button color1 with_shadow">תיאום פגישה</button><br>
+										<strong>לצפייה בפגישות עתידיות, אנא היכנס\י לאזור האישי</strong>
+									</div>
+								</div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<footer class="page_footer cs main_color2 table_section section_padding_50 columns_padding_0">
+				<div class="container">
+
+					<div class="row">
+
+						<div class="col-sm-4 col-sm-push-4 text-center">
+							<a href="./" class="logo big text-shadow">
+								אנונימי
+								<span class="small-text">סיוע אנונימי עבור נפגעי הטרדה מינית</span>
+							</a>
+						</div>
+
+						<div class="col-sm-4 col-sm-pull-4 text-center text-sm-left text-md-left">
+							<div class="widget widget_nav_menu greylinks">
+
+								<ul class="menu divided_content wide_divider">
+									<li class="">
+										<a href="./">ראשי</a>
+									</li>
+									<li class="">
+										<a href="about.html">מי אנחנו</a>
+									</li>
+									<li class="">
+										<a href="services.html">שירותים</a>
+									</li>
+								</ul>
+
+							</div>
+						</div>
+
+						<div class="col-sm-4 text-center text-sm-right text-md-right">
+							<div class="widget widget_nav_menu greylinks">
+
+								<ul class="menu divided_content wide_divider">
+									<li class="">
+										<a href="gallery-regular-3-cols.html">????</a>
+									</li>
+									<li class="">
+										<a href="blog-right.html">פורום</a>
+									</li>
+									<li class="">
+										<a href="contact.html">קביעת פגישה</a>
+										
+									</li>
+								</ul>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</footer>
+
+			<section class="cs main_color2 page_copyright section_padding_15">
+				<div class="container with_top_border">
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<p class="small-text">פרויקט זה הינו חלק מסדנה מעשית במערוכת מידע, כל הזכויות שמורות</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</div>
+		<!-- eof #box_wrapper -->
+	</div>
+	<!-- eof #canvas -->
+
+	<script src="js/compressed.js"></script>
+	<script src="js/main.js"></script>
+
+
+</body>
+
+</html>
