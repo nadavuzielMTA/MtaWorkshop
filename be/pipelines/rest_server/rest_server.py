@@ -1,10 +1,11 @@
 import datetime
-import time
+
 from flask_restful import Resource
 from flask_restful.reqparse import RequestParser
 from be.mongo.db_client import AtlasMongoClient
 from be.apis.zoom_api.zoom_api import ZoomAPI
 from be.apis.gmail_api.gmail import GmailAPI
+import logging
 
 mongo = AtlasMongoClient()
 db = mongo.db
@@ -80,3 +81,35 @@ class ZoomMeetingResource(Resource):
                                            {"$push": {'zoom_meetings': zoom_meeting_details}}, upsert=True)
 
         return zoom_link
+
+
+class RegisterResource(Resource):
+    #login
+    def get(self):
+        args = parser.parse_args()
+        username = args.get('username')
+        password = args.get('password')
+        user = db.user.find_one({"username": username})
+        if user['password'] == password:
+            return True
+        return False
+
+    #register
+    def post(self):
+        args = parser.parse_args()
+        username = args.get('username')
+        password = args.get('password')
+        user = db.user.find({"username": username})
+        if user.count() == 0:
+            return False
+
+        try:
+            user = db.user.insert_one({"username": username, "password": password})
+        except Exception as e:
+            logging.warning(f'failed to add user : {username} {password} ')
+            user = None
+
+        if user:
+            return True
+
+        return False
