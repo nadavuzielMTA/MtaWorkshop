@@ -8,14 +8,16 @@ class GmailAPI:
         self.sender_address = 'anonymousmtaworkshop@gmail.com'
         self.sender_pass = 'QAZqaz123'
 
-    def send_mail(self, join_url, meeting_password):
-        mail_content = f'{join_url} - {meeting_password}'
-        receiver_addresses = ['naduziel@gmail.com']
+    def send_mail(self, zoom_link, receiver_addresses, date, time):
+        mail_content = "אנונימי, שלום :) \n" \
+                       "\n קבעת פגישת זום איתנו בתאריך: %s בשעה: %s" \
+                       "\n חשוב לנו להדגיש כי הזום הינו אנונימי והמצלמות כבויות במצב הדיפולטי." \
+                       "%s".format(date, time, zoom_link)
 
         message = MIMEMultipart()
         message['From'] = self.sender_address
         message['To'] = ", ".join(receiver_addresses)
-        message['Subject'] = 'Sending mail from Python with a real zoom link'
+        message['Subject'] = 'אנונימי'
 
         # #The body and the attachments for the mail
         message.attach(MIMEText(mail_content, 'plain'))

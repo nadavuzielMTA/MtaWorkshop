@@ -1,10 +1,11 @@
 import datetime
-
+from flask import request
 from flask_restful import Resource
 from flask_restful.reqparse import RequestParser
 from be.mongo.db_client import AtlasMongoClient
 from be.apis.zoom_api.zoom_api import ZoomAPI
 from be.apis.gmail_api.gmail import GmailAPI
+
 import logging
 
 mongo = AtlasMongoClient()
@@ -16,19 +17,59 @@ parser = RequestParser()
 
 class PsycologistResource(Resource):
     def get(self):
-        args = parser.parse_args()
-        psychologist_name = args.get('psychologist_name')
-        action = args.get('action')
-        if action == 'available_dates':
+        list_psycologists_names = []
+        psycologists = db.psycologist.find()
+
+        for psycologist in psycologists:
+            list_psycologists_names.append(psycologist.get('name'))
+
+        return list_psycologists_names
+
+
+class AppointmentResource(Resource):
+    def get(self):
+        psychologist_name = request.args.get('psychologist_name')
+        action = request.args.get('action')
+        if action == 'list_of_dates':
             return self.get_available_dates_from_psycologist()
 
         elif action == 'available_time':
-            psychologist_details = db.psycologist.fine_one({"name": psychologist_name})
-            zoom_meetings = psychologist_details.get('zoom_meetings')
-            return self.get_available_time_for_psycologist(zoom_meetings)
+            date = request.args.get('date')
+            psychologist_zoom_meetings = db.zoom.fine_one({"psychologist_name": psychologist_name},
+                                                          {'date': date})
+            if not psychologist_zoom_meetings:
+                return ['אין שעות פנויות ביום זה.\n נסה בתאריך אחר :)']
 
-        print(db.test.find_one()['time'])
-        return {'time': db.test.find_one()['time']}
+            return self.get_available_time_for_psycologist(psychologist_zoom_meetings)
+
+    def post(self):
+        username = request.form.get('username')
+        date = request.form.get('date')
+        start_time = request.form.get('start_time')
+        psycologist_name = request.form.get('psycologist_name')
+        email = request.form.get('email')
+
+        user = db.user.find_one({"username": username})
+        if not user:
+            return 'אנא התחבר לאתר על מהת לקבוע פגישה.\n הרישום לאתר אינו מחייב מסירת פרטים אישיים!'
+
+        date_and_time = date + 'T10:' + start_time
+        zoom_link = zoom.createMeeting(date_and_time)
+        zoom_obj = {"zoom_link": zoom_link, "date": date, "start_time": start_time,
+                    "psycologist_name": psycologist_name, 'user': username}
+
+        db.zoom.insert(zoom_obj)
+        db.user.find_one_and_update({"username": username},
+                                    {"$set": {'zoom_meetings': zoom_obj}}, upsert=True)
+        db.psycologist.find_one_and_update({"name": psycologist_name},
+                                           {"$push": {'zoom_meetings': zoom_obj}}, upsert=True)
+
+        contnet = 'נרשמת בהצלחה'
+        if email:
+            gmail.send_mail(zoom_link, email, date, start_time)
+            contnet = 'נשרמת בהצלחה, נשלח אליך מייל עם הפרטים'
+
+        return contnet
 
     @staticmethod
     def get_available_dates_from_psycologist():
@@ -56,51 +97,30 @@ class ComplaintResource(Resource):
 
 class ZoomMeetingResource(Resource):
     def get(self):
-        args = parser.parse_args()
-        username = args.get('username')
+        username = request.args.get('username')
         user_details = db.user.find({'username': username})
         zoom_meeting_details = user_details.get('zoom_meeting_details')
         return zoom_meeting_details.get('id'), zoom_meeting_details.get('zoom_link')
 
-    def post(self):
-        args = parser.parse_args()
-        username = args.get('username')
-        date = args.get('date')
-        start_time = args.get('start_time')
-        psycologist_name = args.get('psycologist_name')
-
-        date_and_time = date + 'T10:' + start_time
-        zoom_link = zoom.createMeeting(date_and_time)
-        zoom_meeting_details = {"zoom_meeting_details": {"zoom_link"},
-                                                         "date": date,
-                                                         "start_time": start_time}
-        db.user.find_one_and_update({"username": username},
-                                    {"$set": zoom_meeting_details}, upsert=True)
-
-        db.psycologist.fine_one_and_update({"name": psycologist_name},
-                                           {"$push": {'zoom_meetings': zoom_meeting_details}}, upsert=True)
-
-        return zoom_link
-
 
 class RegisterResource(Resource):
+
     #login
     def get(self):
-        args = parser.parse_args()
-        username = args.get('username')
-        password = args.get('password')
+        username = request.args.get('username')
+        password = request.args.get('password')
         user = db.user.find_one({"username": username})
-        if user['password'] == password:
+        if user and user.get('password') == password:
             return True
         return False
 
     #register
     def post(self):
         args = parser.parse_args()
-        username = args.get('username')
-        password = args.get('password')
+        username = request.form.get('username')
+        password = request.form.get('password')
         user = db.user.find({"username": username})
-        if user.count() == 0:
+        if user.count() != 0:
             return False
 
         try:
