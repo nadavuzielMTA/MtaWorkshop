@@ -14,55 +14,61 @@ zoom = ZoomAPI()
 gmail = GmailAPI()
 parser = RequestParser()
 
+psychologist_name_to_hebrew = {'ליאת הר-טוב': 'leat har-tov',
+                               'רינה אאלוף': 'rina aaluf',
+                               'קלרה מולדן': 'clara moldan',
+                               'אדי גרין': 'adi grin'}
+
 
 class PsycologistResource(Resource):
     def get(self):
-        list_psycologists_names = []
-        psycologists = db.psycologist.find()
+        list_psychologists_names = []
+        psychologists = db.psychologist.find()
 
-        for psycologist in psycologists:
-            list_psycologists_names.append(psycologist.get('name'))
+        for psychologist in psychologists:
+            list_psychologists_names.append(psychologist.get('name'))
 
-        return list_psycologists_names
+        return list_psychologists_names
 
 
 class AppointmentResource(Resource):
     def get(self):
-        psychologist_name = request.args.get('psychologist_name')
         action = request.args.get('action')
         if action == 'list_of_dates':
-            return self.get_available_dates_from_psycologist()
+            return self.get_available_dates_from_psychologist()
 
         elif action == 'available_time':
+            psychologist_name = request.args.get('psychologist_name')
+            psychologist_name = psychologist_name_to_hebrew.get(psychologist_name, '')
             date = request.args.get('date')
-            psychologist_zoom_meetings = db.zoom.fine_one({"psychologist_name": psychologist_name},
-                                                          {'date': date})
-            if not psychologist_zoom_meetings:
-                return ['אין שעות פנויות ביום זה.\n נסה בתאריך אחר :)']
-
-            return self.get_available_time_for_psycologist(psychologist_zoom_meetings)
+            psychologist_zoom_meetings = db.meeting.find({"psychologist_name": psychologist_name, 'date': date})
+            return self.get_available_time_for_psychologist(psychologist_zoom_meetings)
 
     def post(self):
         username = request.form.get('username')
         date = request.form.get('date')
-        start_time = request.form.get('start_time')
-        psycologist_name = request.form.get('psycologist_name')
+        start_time = request.form.get('time')
+        psychologist_name = request.form.get('psychologist_name')
         email = request.form.get('email')
 
+        psychologist_name = psychologist_name_to_hebrew.get(psychologist_name, '')
         user = db.user.find_one({"username": username})
         if not user:
             return 'אנא התחבר לאתר על מהת לקבוע פגישה.\n הרישום לאתר אינו מחייב מסירת פרטים אישיים!'
 
-        date_and_time = date + 'T10:' + start_time
+        user_zoom_meeting = user.get('zoom_meetings', {})
+        if user_zoom_meeting:
+            zoom_link = user_zoom_meeting.get('zoom_link')
+            db.meeting.find_one_and_delete({'zoom_link': zoom_link})
+
+        date_and_time = date + 'T10: ' + start_time[:3] + ' ' + start_time[3:] # format '2021-10-04T10: 09: 00'
         zoom_link = zoom.createMeeting(date_and_time)
         zoom_obj = {"zoom_link": zoom_link, "date": date, "start_time": start_time,
-                    "psycologist_name": psycologist_name, 'user': username}
+                    "psychologist_name": psychologist_name, 'user': username}
 
-        db.zoom.insert(zoom_obj)
+        db.meeting.insert(zoom_obj)
         db.user.find_one_and_update({"username": username},
                                     {"$set": {'zoom_meetings': zoom_obj}}, upsert=True)
-        db.psycologist.find_one_and_update({"name": psycologist_name},
-                                           {"$push": {'zoom_meetings': zoom_obj}}, upsert=True)
 
         contnet = 'נרשמת בהצלחה'
         if email:
@@ -72,20 +78,24 @@ class AppointmentResource(Resource):
         return contnet
 
     @staticmethod
-    def get_available_dates_from_psycologist():
+    def get_available_dates_from_psychologist():
         sdate = datetime.datetime.now().date()
-        available_dates = [sdate + datetime.timedelta(days=i) for i in range(30)]
+        available_dates = [str(sdate + datetime.timedelta(days=i)) for i in range(30)]
         return available_dates
 
     @staticmethod
-    def get_available_time_for_psycologist(zoom_meetings):
+    def get_available_time_for_psychologist(zoom_meetings):
         stime = datetime.time(9, 00)
 
-        available_appointments = [(datetime.datetime.combine(datetime.date(1, 1, 1), stime) +
-                                   datetime.timedelta(minutes=30*i)).time() for i in range(18)]
+        available_appointments = [str((datetime.datetime.combine(datetime.date(1, 1, 1), stime) +
+                                       datetime.timedelta(minutes=30*i)).time())[:-3] for i in range(19)]
+
+        if zoom_meetings.count == 0:
+            return available_appointments
+
         for zoom_meeting in zoom_meetings:
             if zoom_meeting['start_time'] in available_appointments:
-                available_appointments.pop(zoom_meeting['start_time'])
+                available_appointments.remove(zoom_meeting['start_time'])
         return available_appointments
 
 
@@ -133,3 +143,5 @@ class RegisterResource(Resource):
             return True
 
         return False
+
+

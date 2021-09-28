@@ -2,32 +2,32 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+import base64
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from be.apis.gmail_api.google import Create_Service
+
+API_NAME = 'gmail'
+API_VERSION = 'v1'
+SCOPES = 'https://mail.google.com/'
+
 
 class GmailAPI:
     def __init__(self):
-        self.sender_address = 'anonymousmtaworkshop@gmail.com'
-        self.sender_pass = 'QAZqaz123'
+        self.service = Create_Service(API_NAME, API_VERSION, [SCOPES])
 
     def send_mail(self, zoom_link, receiver_addresses, date, time):
-        mail_content = "אנונימי, שלום :) \n" \
-                       "\n קבעת פגישת זום איתנו בתאריך: %s בשעה: %s" \
+        emailMsg = "אנונימי, שלום :) \n" \
+                       "\n קבעת פגישת זום איתנו בתאריך: {} בשעה: {}" \
                        "\n חשוב לנו להדגיש כי הזום הינו אנונימי והמצלמות כבויות במצב הדיפולטי." \
-                       "%s".format(date, time, zoom_link)
+                       "\n{}".format(date, time, zoom_link)
 
-        message = MIMEMultipart()
-        message['From'] = self.sender_address
-        message['To'] = ", ".join(receiver_addresses)
-        message['Subject'] = 'אנונימי'
+        mimeMessage = MIMEMultipart()
+        mimeMessage['to'] = receiver_addresses
+        mimeMessage['subject'] = 'אנונימי'
 
-        # #The body and the attachments for the mail
-        message.attach(MIMEText(mail_content, 'plain'))
+        mimeMessage.attach(MIMEText(emailMsg, 'plain'))
+        raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
 
-        #Create SMTP session for sending the mail
-        session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port 587
-        session.starttls() #enable security
-        session.login(self.sender_address, self.sender_pass) #login with mail_id and password
-
-        text = message.as_string()
-        session.sendmail(self.sender_address, receiver_addresses, text)
-        session.quit()
-        print('Mail Sent')
+        message = self.service.users().messages().send(userId='me', body={'raw': raw_string}).execute()
+        print(message)
