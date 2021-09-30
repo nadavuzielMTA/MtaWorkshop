@@ -108,11 +108,28 @@ class lawyerComplaintResource(Resource):
                  'in_treatment': complaint.get('in_treatment'), 'done': complaint.get('done'),
                  'created': complaint.get('created')} for complaint in complaints]
 
+    def post(self):
+        user_id = request.form.get('user_id')
+        sent = request.form.get('sent')
+        sent_to_police = request.form.get('sent_to_police')
+        in_treatment = request.form.get('in_treatment')
+        done = request.form.get('done')
 
-class NewComplaintResource(Resource):
+        db.complaint.find_one_and_update({"user_id": user_id},
+                                         {"$set": {'sent_to_police': sent_to_police == 'true', 'sent': sent == 'true',
+                                                   'in_treatment': in_treatment == 'true', 'done': done == 'true'}},
+                                         upsert=True)
+
+
+class ComplaintResource(Resource):
     def get(self):
-        complains = mongo.db.complaints
-        return {'time': complains.find_one()['content']}
+        username = request.args.get('username')
+        complaint = db.complaint.find_one({'username': username})
+        if not complaint:
+            return {'sent_to_police': 'false', 'sent': 'false',
+                    'in_treatment': 'false', 'done': 'false'}
+        return {'sent_to_police': complaint['sent_to_police'], 'sent': complaint['sent'],
+                'in_treatment': complaint['in_treatment'], 'done': complaint['done']}
 
     def post(self):
         name = request.form.get('name')
@@ -126,6 +143,9 @@ class NewComplaintResource(Resource):
         description = request.form.get('description')
         username = request.form.get('username')
 
+        user_complaint = db.complaint.find_one({'user_id': user_id})
+        if user_complaint:
+            db.complaint.remove({'user_id': user_id})
         try:
             db.complaint.insert({'name': name, 'user_id': user_id, 'email': email, 'city': city,
                                  'phone_number': phone_number, 'date': date, 'place': place, 'time': time,
@@ -136,7 +156,7 @@ class NewComplaintResource(Resource):
         except Exception as e:
             return e
 
-        return True
+        return "התלונה נרשמה במערכת וטטופל בהקדם. אנא עקוב אחר האיזור האישי."
 
 
 class ZoomMeetingResource(Resource):
@@ -154,6 +174,7 @@ class ZoomMeetingResource(Resource):
         return [{'title': zoom_meeting['start_time'],
                  'url': zoom_meeting['zoom_link'],
                  'start': zoom_meeting['date']} for zoom_meeting in zoom_meetings]
+
 
 class RegisterResource(Resource):
 
