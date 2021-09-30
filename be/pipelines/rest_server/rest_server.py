@@ -99,19 +99,61 @@ class AppointmentResource(Resource):
         return available_appointments
 
 
-class ComplaintResource(Resource):
+class lawyerComplaintResource(Resource):
+    def get(self):
+        complaints = db.complaint.find()
+        return [{'name': complaint.get('name'), 'user_id': complaint.get('user_id'),
+                 'description': complaint.get('description'), 'last_update': str(complaint.get('last_update')),
+                 'sent': complaint.get('sent'), 'sent_to_police': complaint.get('sent_to_police'),
+                 'in_treatment': complaint.get('in_treatment'), 'done': complaint.get('done'),
+                 'created': complaint.get('created')} for complaint in complaints]
+
+
+class NewComplaintResource(Resource):
     def get(self):
         complains = mongo.db.complaints
         return {'time': complains.find_one()['content']}
+
+    def post(self):
+        name = request.form.get('name')
+        user_id = request.form.get('user_id')
+        email = request.form.get('email')
+        city = request.form.get('city')
+        phone_number = request.form.get('phone_number')
+        date = request.form.get('date')
+        place = request.form.get('place')
+        time = request.form.get('time')
+        description = request.form.get('description')
+        username = request.form.get('username')
+
+        try:
+            db.complaint.insert({'name': name, 'user_id': user_id, 'email': email, 'city': city,
+                                 'phone_number': phone_number, 'date': date, 'place': place, 'time': time,
+                                 'description': description, 'username': username, 'sent': True,
+                                 'sent_to_police': False, 'in_treatment': False, 'done': False,
+                                 'last_update': str(datetime.datetime.now().date()),
+                                 'created': str(datetime.datetime.now().date())})
+        except Exception as e:
+            return e
+
+        return True
 
 
 class ZoomMeetingResource(Resource):
     def get(self):
         username = request.args.get('username')
-        user_details = db.user.find({'username': username})
-        zoom_meeting_details = user_details.get('zoom_meeting_details')
-        return zoom_meeting_details.get('id'), zoom_meeting_details.get('zoom_link')
 
+        if not username:
+            return {}
+
+        if username in psychologist_name_to_hebrew.values():
+            zoom_meetings = db.meeting.find({'psychologist_name': username})
+        else:
+            zoom_meetings = db.meeting.find({'user': username})
+
+        return [{'title': zoom_meeting['start_time'],
+                 'url': zoom_meeting['zoom_link'],
+                 'start': zoom_meeting['date']} for zoom_meeting in zoom_meetings]
 
 class RegisterResource(Resource):
 
