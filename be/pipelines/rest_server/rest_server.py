@@ -61,7 +61,7 @@ class AppointmentResource(Resource):
 
         contnet = 'נרשמת בהצלחה'
         if email:
-            gmail.send_mail(zoom_link, email, date, start_time)
+            gmail.send_mail(zoom_link, email, date, start_time, psychologist_name)
             contnet = 'נשרמת בהצלחה, נשלח אליך מייל עם הפרטים'
 
         return contnet

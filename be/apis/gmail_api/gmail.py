@@ -16,11 +16,11 @@ class GmailAPI:
     def __init__(self):
         self.service = Create_Service(API_NAME, API_VERSION, [SCOPES])
 
-    def send_mail(self, zoom_link, receiver_addresses, date, time):
+    def send_mail(self, zoom_link, receiver_addresses, date, time, psychologist_name):
         emailMsg = "אנונימי, שלום :) \n" \
-                       "\n קבעת פגישת זום איתנו בתאריך: {} בשעה: {}" \
+                       "\n קבעת פגישת זום עם {} בתאריך: {} בשעה: {}" \
                        "\n חשוב לנו להדגיש כי הזום הינו אנונימי והמצלמות כבויות במצב הדיפולטי." \
-                       "\n{}".format(date, time, zoom_link)
+                       "\n{}".format(date, psychologist_name, time, zoom_link)
 
         mimeMessage = MIMEMultipart()
         mimeMessage['to'] = receiver_addresses
