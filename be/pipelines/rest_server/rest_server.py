@@ -50,7 +50,7 @@ class AppointmentResource(Resource):
             zoom_link = user_zoom_meeting.get('zoom_link')
             db.meeting.find_one_and_delete({'zoom_link': zoom_link})
 
-        date_and_time = date + 'T10: ' + start_time[:3] + ' ' + start_time[3:] # format '2021-10-04T10: 09: 00'
+        date_and_time = date + 'T' + start_time + ':00' # format '2021-10-04T10: 09: 00'
         zoom_link = zoom.createMeeting(date_and_time)
         zoom_obj = {"zoom_link": zoom_link, "date": date, "start_time": start_time,
                     "psychologist_name": psychologist_name, 'user': username}

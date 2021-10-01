@@ -10,8 +10,7 @@ class ZoomAPI:
         meeting_details = self.generate_meeting_details(date_and_time)
         headers = {'authorization': 'Bearer %s' % TOKEN,
                    'content-type': 'application/json'}
-        r = requests.post(f'https://api.zoom.us/v2/users/{USER_ID}/meetings', headers=headers,
-                          data=json.dumps(meeting_details))
+        r = requests.post(f'https://api.zoom.us/v2/users/{USER_ID}/meetings', headers=headers, data=json.dumps(meeting_details))
 
         print("\n creating zoom meeting ... \n")
         # print(r.text)
@@ -23,12 +22,11 @@ class ZoomAPI:
 
     @staticmethod
     def generate_meeting_details(date_and_time) :
-        return {"topic": "The title of your zoom meeting",
+        return {"topic": "אנונימי",
                 "type": 2,
                 "start_time": f'{date_and_time}',
                 "duration": "30",
                 "timezone": "Asia/Jerusalem",
-                "agenda": "test",
 
                 "recurrence": {"type": 1,
                               "repeat_interval": 1},
