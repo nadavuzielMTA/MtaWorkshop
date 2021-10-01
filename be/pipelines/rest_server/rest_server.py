@@ -103,11 +103,14 @@ class lawyerComplaintResource(Resource):
         sent_to_police = request.form.get('sent_to_police')
         in_treatment = request.form.get('in_treatment')
         done = request.form.get('done')
-
-        db.complaint.find_one_and_update({"user_id": user_id},
-                                         {"$set": {'sent_to_police': sent_to_police == 'true', 'sent': sent == 'true',
-                                                   'in_treatment': in_treatment == 'true', 'done': done == 'true'}},
-                                         upsert=True)
+        try:
+            db.complaint.find_one_and_update({"user_id": user_id},
+                                             {"$set": {'sent_to_police': sent_to_police == 'true', 'sent': sent == 'true',
+                                                       'in_treatment': in_treatment == 'true', 'done': done == 'true'}},
+                                             upsert=True)
+        except Exception as e:
+            return False
+        return True
 
 
 class ComplaintResource(Resource):
