@@ -27,7 +27,7 @@ class ZoomAPI:
                 "type": 2,
                 "start_time": f'{date_and_time}',
                 "duration": "30",
-                "timezone": "Europe/Madrid",
+                "timezone": "Asia/Jerusalem",
                 "agenda": "test",
 
                 "recurrence": {"type": 1,

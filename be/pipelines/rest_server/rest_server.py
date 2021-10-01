@@ -148,7 +148,7 @@ class ComplaintResource(Resource):
         except Exception as e:
             return e
 
-        return "התלונה נרשמה במערכת וטטופל בהקדם. אנא עקוב אחר האיזור האישי."
+        return "התלונה נרשמה במערכת ותטופל בהקדם. אנא עקוב אחר האיזור האישי."
 
 
 class ZoomMeetingResource(Resource):
