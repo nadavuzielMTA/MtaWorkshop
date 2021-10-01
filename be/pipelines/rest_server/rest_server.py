@@ -20,17 +20,6 @@ psychologist_name_to_hebrew = {'ליאת הר-טוב': 'leat har-tov',
                                'אדי גרין': 'adi grin'}
 
 
-class PsycologistResource(Resource):
-    def get(self):
-        list_psychologists_names = []
-        psychologists = db.psychologist.find()
-
-        for psychologist in psychologists:
-            list_psychologists_names.append(psychologist.get('name'))
-
-        return list_psychologists_names
-
-
 class AppointmentResource(Resource):
     def get(self):
         action = request.args.get('action')
@@ -189,7 +178,6 @@ class RegisterResource(Resource):
 
     #register
     def post(self):
-        args = parser.parse_args()
         username = request.form.get('username')
         password = request.form.get('password')
         user = db.user.find({"username": username})
