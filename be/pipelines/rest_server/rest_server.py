@@ -106,7 +106,8 @@ class lawyerComplaintResource(Resource):
         try:
             db.complaint.find_one_and_update({"user_id": user_id},
                                              {"$set": {'sent_to_police': sent_to_police == 'true', 'sent': sent == 'true',
-                                                       'in_treatment': in_treatment == 'true', 'done': done == 'true'}},
+                                                       'in_treatment': in_treatment == 'true', 'done': done == 'true',
+                                                       'last_update': str(datetime.datetime.now().date())}},
                                              upsert=True)
         except Exception as e:
             return False
